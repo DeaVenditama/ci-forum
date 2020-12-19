@@ -246,3 +246,25 @@ input, textarea {
 .closebtn:hover {
     color : black;
 }
+
+table{
+    margin-top: 10px;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width : 100%;
+    border: 1px solid #c0392b;
+}
+
+th, td {
+    text-align: left;
+    padding : 16px;
+    border : 1px solid #c0392b;
+}
+
+tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+
+.flex-container{
+    display: flex;
+}

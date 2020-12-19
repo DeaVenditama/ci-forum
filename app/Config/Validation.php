@@ -62,4 +62,25 @@ class Validation
 			'rules' => 'uploaded[avatar]|mime_in[avatar,image/jpg,image/jpeg,image/gif,image/png|max_size[avatar,1024]',
 		]
 	];
+
+	public $userupdate = [
+		'username' => [
+			'rules' => 'required|min_length[5]|is_unique[user.username,id,{id}]',
+		],
+		'nama' => [
+			'rules' => 'required|min_length[3]',
+		],
+		'email' => [
+			'rules' => 'required|valid_email',
+		],
+		'tanggal_lahir' => [
+			'rules' => 'required|valid_date',
+		],
+		'alamat' => [
+			'rules' => 'required'
+		],
+		'telp' => [
+			'rules' => 'is_natural'
+		],
+	];
 }
