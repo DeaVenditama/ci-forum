@@ -83,4 +83,13 @@ class Validation
 			'rules' => 'is_natural'
 		],
 	];
+
+	public $login = [
+		'user-username' => [
+			'rules' => 'required',
+		],
+		'user-password' => [
+			'rules' => 'required',
+		],
+	];
 }

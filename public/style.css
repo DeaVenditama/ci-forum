@@ -268,3 +268,10 @@ tr:nth-child(even){
 .flex-container{
     display: flex;
 }
+
+.login-container {
+    background-color: rgba(247, 248, 249, 1);
+    padding: 30px;
+    margin-top: 40px;
+    text-align: center;
+}

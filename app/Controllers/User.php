@@ -64,8 +64,13 @@ class User extends BaseController
 
             $this->session->setFlashdata('errors', $errors);
         }
-
-        return view('user/create');
+        if($this->session->role===0)
+        {
+            return view('user/create');
+        }else{
+            return redirect()->to(base_url('auth/register'));
+        }
+        
     }
 
     public function update()
