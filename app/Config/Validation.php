@@ -92,4 +92,16 @@ class Validation
 			'rules' => 'required',
 		],
 	];
+
+	public $thread = [
+		'judul' => [
+			'rules' => 'required',
+		],
+		'id_kategori' => [
+			'rules' => 'required',
+		],
+		'isi' => [
+			'rules' => 'required',
+		],
+	];
 }

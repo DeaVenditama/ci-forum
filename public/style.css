@@ -208,7 +208,7 @@ footer .copyrights {
     padding: 30px;
 }
 
-input, textarea {
+input, textarea, select {
     width : 100%;
     padding : 12px 20px;
     margin : 8px 0;
@@ -274,4 +274,7 @@ tr:nth-child(even){
     padding: 30px;
     margin-top: 40px;
     text-align: center;
+}
+.ck-editor__editable_inline{
+    min-height: 200px;
 }

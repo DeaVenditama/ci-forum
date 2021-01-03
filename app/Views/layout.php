@@ -27,6 +27,7 @@
 				<button onclick="toggleMenu();">&#9776;</button>
 			</li>
 			<li class="menu-item hidden"><a href="#">Home</a></li>
+			<li class="menu-item hidden"><a href="<?= base_url("thread/index") ?>" >Thread</a></li>
 			<li class="menu-item hidden"><a href="<?= base_url("user/index") ?>" >User</a></li>
 			<li class="menu-item hidden"><a href="<?= base_url("auth/logout") ?>">Logout (<?= $session->username ?>)</a></li>
 		</ul>
@@ -77,6 +78,7 @@
 </footer>
 
 <!-- SCRIPTS -->
+<?= $this->renderSection('script') ?>
 
 <script>
 	function toggleMenu() {
