@@ -104,4 +104,10 @@ class Validation
 			'rules' => 'required',
 		],
 	];
+
+	public $reply = [
+		'isi' => [
+			'rules' => 'required|min_length[10]'
+		]
+	];
 }

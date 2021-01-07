@@ -2,6 +2,7 @@
 use \App\Models\ThreadModel;
 use \App\Models\KategoriModel;
 use \App\Models\UserModel;
+use \App\Models\ReplyModel;
 
 class Thread extends BaseController
 {
@@ -39,10 +40,17 @@ class Thread extends BaseController
         $modelUser = new UserModel();
         $user = $modelUser->find($thread->created_by);
 
+        $modelReply = new ReplyModel();
+        $reply = $modelReply->select('reply.id, reply.isi, reply.created_at ,user.nama, user.avatar')
+                    ->join('user','user.id=reply.id_user', 'left')
+                    ->where('id_thread',$id)
+                    ->get();
+
         return view('thread/view',[
             'thread' => $thread,
             'kategori' => $kategori,
             'user' => $user,
+            'reply' => $reply,
         ]);
     }
 
