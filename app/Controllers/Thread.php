@@ -15,15 +15,36 @@ class Thread extends BaseController
 
     public function index()
     {
+        $page = 1;
+
+        if($this->request->getGet())
+        {
+            $page = $this->request->getGet('page');
+        }
+
+        $perPage = 20;
+
+        $limit = $perPage;
+        $offset = ($page-1)*$perPage;
+
         $modelThread = new ThreadModel();
         
         $threads = $modelThread->select('thread.id, thread.judul, kategori.kategori, user.nama ')
                     ->join('kategori', 'thread.id_kategori=kategori.id', 'left')
                     ->join('user', 'thread.created_by=user.id','left')
-                    ->get();
+                    ->get($limit, $offset);
+
+        $total = $modelThread->select('thread.id, thread.judul, kategori.kategori, user.nama ')
+                    ->join('kategori', 'thread.id_kategori=kategori.id', 'left')
+                    ->join('user', 'thread.created_by=user.id','left')
+                    ->countAllResults();
 
         return view('thread/index',[
             'threads' => $threads,
+            'page' => $page,
+            'perPage' => $perPage,
+            'total' => $total,
+            'offset' => $offset,
         ]);
     }
 

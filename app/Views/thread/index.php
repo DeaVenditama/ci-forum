@@ -17,7 +17,7 @@
     <tbody>
         <?php foreach($threads->getResult() as $key=>$thread): ?>
             <tr>
-                <td><?= $key+1 ?></td>
+                <td><?= $offset+$key+1 ?></td>
                 <td>
                     <a href="<?= base_url('thread/view/'.$thread->id) ?>">
                         <?= $thread->judul ?></td>
@@ -34,4 +34,5 @@
         <?php endforeach ?>
     </tbody>
 </table>
+<?= \Config\Services::pager()->makeLinks($page, $perPage, $total, 'custom_pagination') ?>
 <?= $this->endSection() ?>

@@ -99,6 +99,7 @@ header .heroe h2 {
 section {
     margin: 0 auto;
     max-width: 1100px;
+    min-height: 1100px;
     padding: 2.5rem 1.75rem 3.5rem 1.75rem;
 }
 section h1 {
@@ -141,7 +142,7 @@ section svg {
 footer {
     background-color: rgba(221, 72, 20, .8);
     text-align: center;
-    position: fixed;
+    margin-top: 20px;
     left : 0;
     bottom: 0;
     width: 100%;
@@ -278,3 +279,37 @@ tr:nth-child(even){
 .ck-editor__editable_inline{
     min-height: 200px;
 }
+
+ul.pagination li {display:inline;}
+
+ul.pagination li a {
+    background-color: white;
+    border: solid 0.1px #c0392b;
+    color: #c0392b;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer; 
+}
+
+ul.pagination li a:hover{
+    background-color: #c0392b;
+    color: white;
+}
+
+ul.pagination li.active a {
+    background-color: #c0392b;
+    border: solid 0.1px #c0392b;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+} 
