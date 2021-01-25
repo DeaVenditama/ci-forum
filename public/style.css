@@ -313,3 +313,13 @@ ul.pagination li.active a {
     margin: 4px 2px;
     transition-duration: 0.4s;
 } 
+
+.form-inline {
+    display: flex;
+    flex-flow : row-wrap;
+    align-items: center;
+}
+
+.ml-3 {
+    margin-left : 3px;
+}

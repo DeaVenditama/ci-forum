@@ -16,6 +16,12 @@ class Thread extends BaseController
     public function index()
     {
         $page = 1;
+        $keyword = '';
+        
+        if($this->request->getPost())
+        {
+            $keyword = $this->request->getPost('keyword');
+        }
 
         if($this->request->getGet())
         {
@@ -32,11 +38,15 @@ class Thread extends BaseController
         $threads = $modelThread->select('thread.id, thread.judul, kategori.kategori, user.nama ')
                     ->join('kategori', 'thread.id_kategori=kategori.id', 'left')
                     ->join('user', 'thread.created_by=user.id','left')
+                    ->like('thread.isi', $keyword)
+                    ->orLike('thread.judul', $keyword)
                     ->get($limit, $offset);
 
         $total = $modelThread->select('thread.id, thread.judul, kategori.kategori, user.nama ')
                     ->join('kategori', 'thread.id_kategori=kategori.id', 'left')
                     ->join('user', 'thread.created_by=user.id','left')
+                    ->like('thread.isi', $keyword)
+                    ->orLike('thread.judul', $keyword)
                     ->countAllResults();
 
         return view('thread/index',[
@@ -45,6 +55,7 @@ class Thread extends BaseController
             'perPage' => $perPage,
             'total' => $total,
             'offset' => $offset,
+            'keyword' => $keyword,
         ]);
     }
 
@@ -199,7 +210,7 @@ class Thread extends BaseController
             $data = [
                 "uploaded" => false,
                 "error" => [
-                    "messsages" => $file
+                    "messsages" => 'error'
                 ],
             ];
         }

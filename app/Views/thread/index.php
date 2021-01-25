@@ -1,7 +1,30 @@
 <?= $this->extend('layout') ?>
 <?= $this->section('content') ?>
+<?php
+    $keyword = [
+        'name' => 'keyword',
+        'value' => $keyword,
+        'placeholder' => 'Keyword...'
+    ];
+
+    $submit = [
+        'name' => 'submit',
+        'value' => 'Cari',
+        'type' => 'submit',
+    ];
+?>
 <h1>Threads</h1>
 <a href="<?= base_url('thread/create') ?>" class="button">Buat Thread/Postingan Baru</a>
+
+<?= form_open('thread/index',['class'=>'form-inline'])?>
+    <div>
+        <?= form_input($keyword) ?>
+    </div>
+    <div class="ml-3">
+        <?= form_submit($submit) ?>
+    </div>
+<?= form_close() ?>
+
 <table>
     <thead>
         <tr>
