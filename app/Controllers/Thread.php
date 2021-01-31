@@ -3,6 +3,7 @@ use \App\Models\ThreadModel;
 use \App\Models\KategoriModel;
 use \App\Models\UserModel;
 use \App\Models\ReplyModel;
+use \App\Models\RatingModel;
 
 class Thread extends BaseController
 {
@@ -78,11 +79,25 @@ class Thread extends BaseController
                     ->where('id_thread',$id)
                     ->get();
 
+        $modelRating = new RatingModel();
+        $sum_rating = $modelRating->select('SUM(star) AS star')
+                        ->where('id_thread',$id)
+                        ->first();
+
+        $count_rating = $modelRating->where('id_thread',$id)
+                        ->countAllResults();
+
+        $rating_result = 0;
+        if($count_rating){
+            $rating_result = $sum_rating->star/$count_rating;
+        }
+
         return view('thread/view',[
             'thread' => $thread,
             'kategori' => $kategori,
             'user' => $user,
             'reply' => $reply,
+            'rating_result' => $rating_result,
         ]);
     }
 
@@ -229,5 +244,32 @@ class Thread extends BaseController
         $this->session->setFlashdata('success', 'Delete Thread Berhasil');
 
         return redirect()->to(base_url('thread/index'));
+    }
+
+    public function rate()
+    {
+        if($this->request->getPost())
+        {
+            $modelRating = new RatingModel();
+            $data = $this->request->getPost();
+            $rating = new \App\Entities\Rating();
+
+            $check = $modelRating->where('id_user',$data['id_user'])
+                        ->where('id_thread',$data['id_thread'])
+                        ->first();
+            
+            if($check)
+            {
+                $rating->id = $check->id;
+            }
+
+            $rating->fill($data);
+
+            $modelRating->save($rating);
+
+            $this->session->setFlashdata('success','Pemberian rating berhasil');
+            $segments = ['thread','view',$data['id_thread']];
+            return redirect()->to(base_url($segments));
+        }
     }
 }
