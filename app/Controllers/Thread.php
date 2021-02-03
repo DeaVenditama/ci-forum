@@ -4,6 +4,7 @@ use \App\Models\KategoriModel;
 use \App\Models\UserModel;
 use \App\Models\ReplyModel;
 use \App\Models\RatingModel;
+use \App\Models\ViewRatingModel;
 
 class Thread extends BaseController
 {
@@ -36,9 +37,10 @@ class Thread extends BaseController
 
         $modelThread = new ThreadModel();
         
-        $threads = $modelThread->select('thread.id, thread.judul, kategori.kategori, user.nama ')
+        $threads = $modelThread->select('thread.id, thread.judul, kategori.kategori, user.nama, view_rating.count_star ,view_rating.rating ')
                     ->join('kategori', 'thread.id_kategori=kategori.id', 'left')
                     ->join('user', 'thread.created_by=user.id','left')
+                    ->join('view_rating', 'thread.id=view_rating.id_thread', 'left')
                     ->like('thread.isi', $keyword)
                     ->orLike('thread.judul', $keyword)
                     ->get($limit, $offset);
@@ -46,6 +48,7 @@ class Thread extends BaseController
         $total = $modelThread->select('thread.id, thread.judul, kategori.kategori, user.nama ')
                     ->join('kategori', 'thread.id_kategori=kategori.id', 'left')
                     ->join('user', 'thread.created_by=user.id','left')
+                    ->join('view_rating', 'thread.id=view_rating.id_thread', 'left')
                     ->like('thread.isi', $keyword)
                     ->orLike('thread.judul', $keyword)
                     ->countAllResults();
@@ -79,18 +82,9 @@ class Thread extends BaseController
                     ->where('id_thread',$id)
                     ->get();
 
-        $modelRating = new RatingModel();
-        $sum_rating = $modelRating->select('SUM(star) AS star')
-                        ->where('id_thread',$id)
-                        ->first();
-
-        $count_rating = $modelRating->where('id_thread',$id)
-                        ->countAllResults();
-
-        $rating_result = 0;
-        if($count_rating){
-            $rating_result = $sum_rating->star/$count_rating;
-        }
+        $modelViewRating = new ViewRatingModel();
+        $rating = $modelViewRating->where('id_thread',$id)->first();
+        $rating_result = $rating->rating;
 
         return view('thread/view',[
             'thread' => $thread,

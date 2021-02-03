@@ -30,6 +30,7 @@
         <tr>
             <th>No</th>
             <th>Judul Thread</th>
+            <th>Rating</th>
             <th>Kategori</th>
             <th>Posted By</th>
             <?php if(session()->get('role')==0): ?>
@@ -45,6 +46,21 @@
                     <a href="<?= base_url('thread/view/'.$thread->id) ?>">
                         <?= $thread->judul ?></td>
                     </a>
+                <td>
+                    <?php
+                        for($i=0;$i<5;$i++)
+                        {
+                            if(($i+1)<=$thread->rating)
+                            {
+                                echo '<span class="fa fa-star checked"></span>';
+                            }else{
+                                echo '<span class="fa fa-star"></span>';
+                            }
+                        }
+                    ?>
+                    <br>
+                    <small>dari <?= $thread->count_star ?> user</small>
+                </td>
                 <td><?= $thread->kategori ?></td>
                 <td><?= $thread->nama ?></td>
                 <?php if(session()->get('role')==0): ?>

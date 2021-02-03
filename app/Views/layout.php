@@ -27,9 +27,11 @@
 			<li class="menu-toggle">
 				<button onclick="toggleMenu();">&#9776;</button>
 			</li>
-			<li class="menu-item hidden"><a href="#">Home</a></li>
+			<li class="menu-item hidden"><a href="<?= base_url("home/index") ?>">Home</a></li>
 			<li class="menu-item hidden"><a href="<?= base_url("thread/index") ?>" >Thread</a></li>
-			<li class="menu-item hidden"><a href="<?= base_url("user/index") ?>" >User</a></li>
+			<?php if($session->role==0): ?>
+				<li class="menu-item hidden"><a href="<?= base_url("user/index") ?>" >User</a></li>
+			<?php endif ?>
 			<li class="menu-item hidden"><a href="<?= base_url("auth/logout") ?>">Logout (<?= $session->username ?>)</a></li>
 		</ul>
 	</div>
