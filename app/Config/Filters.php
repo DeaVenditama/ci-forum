@@ -12,6 +12,7 @@ class Filters extends BaseConfig
 		'honeypot' => \CodeIgniter\Filters\Honeypot::class,
 		'auth' => \App\Filters\Auth::class,
 		'admin' => \App\Filters\Admin::class,
+		'message' => \App\Filters\Message::class,
 	];
 
 	// Always applied before every request
@@ -39,6 +40,11 @@ class Filters extends BaseConfig
 		'admin' => [
 			'before'=>[
 				'user/index','user/view','user/update','user/delete'
+			]
+		],
+		'message' => [
+			'before'=>[
+				'messages/view/*'
 			]
 		]
 	];

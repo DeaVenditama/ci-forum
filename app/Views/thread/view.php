@@ -36,7 +36,7 @@
                 <button id="btn_rating">Berikan Rating</button>
                 <br>
                 <small>
-                    Created By <?= $user->username ?> on <?= $kategori->kategori ?> at <?= $thread->created_at ?>
+                    Created By <a href="<?= base_url('user/view/'.$user->id) ?>" ><?= $user->username ?></a> on <?= $kategori->kategori ?> at <?= $thread->created_at ?>
                 </small>
             </div>
             <div style="margin-left:auto">

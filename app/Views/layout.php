@@ -14,6 +14,13 @@
 	$session = session();
 	$errors = $session->getFlashdata('errors');
 	$success = $session->getFlashdata('success');
+
+	$modelMessages = new \App\Models\MessagesModel();
+
+	$count_inbox = $modelMessages->where('id_recipient',$session->id)
+								->where('is_read',0)
+								->countAllResults();
+
 ?>
 <!-- HEADER: MENU + HEROE SECTION -->
 <header>
@@ -29,6 +36,7 @@
 			</li>
 			<li class="menu-item hidden"><a href="<?= base_url("home/index") ?>">Home</a></li>
 			<li class="menu-item hidden"><a href="<?= base_url("thread/index") ?>" >Thread</a></li>
+			<li class="menu-item hidden"><a href="<?= base_url("messages/inbox") ?>" >Inbox(<?= $count_inbox ?>)</a></li>
 			<?php if($session->role==0): ?>
 				<li class="menu-item hidden"><a href="<?= base_url("user/index") ?>" >User</a></li>
 			<?php endif ?>
